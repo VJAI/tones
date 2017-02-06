@@ -1,8 +1,24 @@
-function Tone(context) {
+(function (chirps) {
 
-}
+	'use strict';
 
-Tone.prototype.setup = function () {
+	function Tone(context) {
+		this.context = context;
+	}
 
-};
+	Tone.prototype.setup = function () {
+
+	};
+
+	Tone.prototype.start = function () {
+
+	};
+
+	Tone.prototype.stop = function () {
+
+	};
+
+	chirps.Tone = Tone;
+
+})(window.chirps);
 
