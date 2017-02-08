@@ -1,10 +1,56 @@
 <html>
 <head>
-	<title>
-		chirps
-	</title>
+  <title>chirps - Collection of sounds created using Web Audio API</title>
+  <style>
+    body {
+      margin: 20px 0;
+    }
+
+    .align-center {
+      text-align: center;
+    }
+
+    .sounds-collection-div {
+      margin: 0 auto;
+      width: 60%;
+      min-height: 400px;
+      padding: 10px;
+      border: solid 1px #eee;
+    }
+
+    .sounds-collection {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+
+    .sounds-collection li {
+      width: 100px;
+      height: 100px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .sounds-collection li div {
+      padding: 10px;
+      border: solid 1px #eee;
+    }
+  </style>
 </head>
 <body>
-<h1>chirps</h1>
+<h1 class="align-center"><i>chirps</i> - Collection of sounds created using Web Audio API</h1>
+<div class="sounds-collection-div">
+  <h2 class="align-center">Sounds</h2>
+  <ul class="sounds-collection">
+    <li>
+      <div>
+        <span>telephone</span>
+        <i class="play"></i>
+      </div>
+    </li>
+  </ul>
+</div>
+<script src="chirps.js"></script>
+<script src="index.js"></script>
 </body>
 </html>

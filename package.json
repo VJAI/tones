@@ -1,4 +1,22 @@
 {
 	"name": "chirps",
-	"version": "0.1.0"
+	"version": "0.1.0",
+	"description": "Collection of sounds created using Web Audio API",
+	"license": "MIT",
+  "keywords": [
+    "tone",
+    "sound",
+    "audio",
+    "audio engine",
+    "web audio api",
+    "javascript"
+  ],
+  "scripts": {
+    "start": "http-server -p 8080 -o",
+    "build": "uglifyjs buzzer.js -o buzzer.min.js -c -m "
+  },
+  "devDependencies": {
+    "http-server": "^0.9.0",
+    "uglify-js": "^2.7.5"
+  }
 }
