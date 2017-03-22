@@ -1,3 +1,3 @@
-#chirps
+#tones
 
-Collection of sounds created using Web Audio API
+Store of simple sounds crafted using Web Audio API.
