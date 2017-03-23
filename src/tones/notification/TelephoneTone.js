@@ -10,8 +10,6 @@ class TelephoneTone extends BaseTone {
 
   _filter = null;
 
-  _state = ToneState.NotReady;
-
 	setup() {
 		this._lfOsc = this._context.createOscillator();
 		this._lfOsc.frequency.value = 350;

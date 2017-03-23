@@ -13,6 +13,8 @@ class BaseTone {
 
 	_context = null;
 
+  _state = ToneState.NotReady;
+
 	constructor(context) {
 		this._context = context;
 	}
@@ -28,6 +30,10 @@ class BaseTone {
 	stop() {
 
 	}
+
+	state() {
+	  return this._state;
+  }
 }
 
 export {ToneState, BaseTone as default};
