@@ -50,6 +50,10 @@ class TonesTester {
         toneLi.querySelector('.playstop').addEventListener('click', () => {
           const tone = this._tones[category][toneName];
 
+          if(tone.state() === ToneState.NotReady) {
+            tone.setup();
+          }
+
           if(tone.state() === ToneState.Ready) {
             tone.play();
             playStop.innerText = 'stop';
@@ -60,10 +64,14 @@ class TonesTester {
           }
         });
       });
+
+      soundsUl.appendChild(categoryLi);
     });
 
     el.appendChild(soundsUl);
   }
 }
 
-window.addEventListener('load', () => new TonesTester().init().render(document.querySelector('.sounds')));
+window.addEventListener('load', () => {
+  new TonesTester().init().render(document.querySelector('.sounds'));
+});
