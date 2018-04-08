@@ -50,11 +50,7 @@ class TonesTester {
         toneLi.querySelector('.playstop').addEventListener('click', () => {
           const tone = this._tones[category][toneName];
 
-          if(tone.state() === ToneState.NotReady) {
-            tone.setup();
-          }
-
-          if(tone.state() === ToneState.Ready) {
+          if(tone.state() === ToneState.NotPlaying) {
             tone.play();
             playStop.innerText = 'stop';
           }

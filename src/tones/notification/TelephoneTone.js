@@ -1,66 +1,85 @@
-import BaseTone, {ToneState} from '../BaseTone';
+import BaseTone from '../BaseTone';
 
+/**
+ * Creates a telephone sound.
+ * Credit: http://outputchannel.com/post/recreating-phone-sounds-web-audio/
+ */
 class TelephoneTone extends BaseTone {
 
+  /**
+   * Low frequency oscillator.
+   * @type {OscillatorNode}
+   * @private
+   */
   _lfOsc = null;
 
+  /**
+   * High frequency oscillator.
+   * @type {OscillatorNode}
+   * @private
+   */
   _hfOsc = null;
 
+  /**
+   * Internal gain node.
+   * @type {GainNode}
+   * @private
+   */
   _gain = null;
 
+  /**
+   * Low-pass filter.
+   * @type {FilterNode}
+   * @private
+   */
   _filter = null;
 
-	setup() {
-		this._lfOsc = this._context.createOscillator();
-		this._lfOsc.frequency.value = 350;
+  constructor(context) {
+    super(context);
 
-		this._hfOsc = this._context.createOscillator();
-		this._hfOsc.frequency.value = 440;
+    this._continuous = true;
+    this._duration = Infinity;
+  }
 
-		this._gain = this._context.createGain();
-		this._gain.gain.value = 0.25;
+  _setup() {
+    super._setup();
 
-		this._filter = this._context.createBiquadFilter();
-		this._filter.type = "lowpass";
-		this._filter.frequency.value = 8000;
+    this._lfOsc = this._context.createOscillator();
+    this._lfOsc.frequency.value = 350;
 
-		this._lfOsc.connect(this._gain);
-		this._hfOsc.connect(this._gain);
-		this._gain.connect(this._filter);
-		this._filter.connect(this._context.destination);
+    this._hfOsc = this._context.createOscillator();
+    this._hfOsc.frequency.value = 440;
 
-    this._state = ToneState.Ready;
-	}
+    this._gain = this._context.createGain();
+    this._gain.gain.value = 0.25;
 
-	play() {
-	  if(this._state === ToneState.Playing || this._state === ToneState.Destroyed) {
-	    return this;
-    }
+    this._filter = this._context.createBiquadFilter();
+    this._filter.type = "lowpass";
+    this._filter.frequency.value = 8000;
 
-    if(this._state === ToneState.NotReady) {
-      this.setup();
-    }
+    this._lfOsc.connect(this._gain);
+    this._hfOsc.connect(this._gain);
+    this._gain.connect(this._filter);
+    this._filter.connect(this._masterGain);
+  }
 
-		this._lfOsc.start(0);
-		this._hfOsc.start(0);
+  _play() {
+    this._lfOsc.start(0);
+    this._hfOsc.start(0);
+  }
 
-    this._state = ToneState.Playing;
-	}
+  _stop() {
+    this._lfOsc.stop(0);
+    this._hfOsc.stop(0);
+  }
 
-	stop() {
-	  if(this._state !== ToneState.Playing) {
-	    return this;
-    }
-
-		this._lfOsc.stop(0);
-		this._hfOsc.stop(0);
-
-    this._state = ToneState.Ready;
-	}
-
-	destroy() {
-
-	}
+  _destroy() {
+    [this._filter, this._gain, this._hfOsc, this._lfOsc].forEach(node => node.disconnect());
+    this._filter = null;
+    this._gain = null;
+    this._lfOsc = null;
+    this._hfOsc = null;
+  }
 }
 
 export default TelephoneTone;
